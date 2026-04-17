@@ -1,0 +1,97 @@
+/**
+ * BRUNO LOUREIRO | CTO & AI ARCHITECT
+ * FOLHA DE ESTILOS DE ALTA PERFORMANCE
+ */
+
+/* 1. RESET E FUNDO (MESH DINÂMICO) */
+body {
+    background-color: #050505;
+    margin: 0;
+    overflow-x: hidden; /* Evita scroll horizontal por causa dos brilhos */
+}
+
+.bg-mesh {
+    background-color: #050505;
+    background-image: 
+        radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+        radial-gradient(at 100% 0%, hsla(225,39%,30%,1) 0, transparent 50%);
+}
+
+/* 2. GRADIENTE ANIMADO (CORREÇÃO DE CORTE) */
+.text-gradient { 
+    background: linear-gradient(
+        to right, 
+        #60a5fa 0%, 
+        #2dd4bf 25%, 
+        #a855f7 50%, 
+        #2dd4bf 75%, 
+        #60a5fa 100%
+    ); 
+    background-size: 200% auto;
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+    animation: shine 4s linear infinite;
+    
+    /* SOLUÇÃO PARA NÃO CORTAR O ITÁLICO */
+    display: inline-block;    /* Permite que o padding funcione */
+    padding-right: 30px;      /* Espaço extra para a inclinação da fonte Black Italic */
+    margin-right: -25px;      /* Compensa o padding para manter o alinhamento do texto */
+    vertical-align: top;
+    line-height: 1.3;         /* Altura extra para não cortar brilhos no topo/base */
+}
+
+@keyframes shine {
+    to { background-position: 200% center; }
+}
+
+/* 3. VIDRO DINÂMICO (GLASSMORPHISM) */
+.glass {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+}
+
+.glass:hover {
+    border-color: rgba(59, 130, 246, 0.5) !important;
+    transform: translateY(-5px) scale(1.01);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+/* 4. SPOTLIGHT (O BRILHO QUE SEGUE O MOUSE) */
+.glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        400px circle at var(--mouse-x) var(--mouse-y), 
+        rgba(59, 130, 246, 0.12), 
+        transparent 40%
+    );
+    z-index: -1; /* Fica atrás do conteúdo do card */
+    pointer-events: none;
+}
+
+/* 5. MÁQUINA DE ESCREVER (TYPEWRITER) */
+#typewriter::after {
+    content: '|';
+    margin-left: 5px;
+    color: #60a5fa;
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* 6. CLASSES AUXILIARES */
+.border-glow { 
+    border: 1px solid rgba(59, 130, 246, 0.3); 
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.05);
+}
+
+.btn-gradient { 
+    background: linear-gradient(135deg, #3b82f6 0%, #2dd4bf 100%); 
+    transition: all 0.3s ease; 
+}
